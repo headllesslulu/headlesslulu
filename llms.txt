@@ -1,12 +1,40 @@
-# AI Corpus
+# AI Corpus (Agent-native)
 
-## Start
+## Start (lowest-latency)
 - https://headllesslulu.github.io/headlesslulu/docs/rag-contract.md
+- https://headllesslulu.github.io/headlesslulu/docs/agent-recipe-bm25.md
 - https://headllesslulu.github.io/headlesslulu/exports/manifest.json
 - https://headllesslulu.github.io/headlesslulu/exports/chunks.ndjson
 
-## Papers
+## Index (for small models / low hardware)
+- https://headllesslulu.github.io/headlesslulu/exports/index/index_meta.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/doc_index.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/doclens.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/vocab_summary.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_00.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_01.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_02.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_03.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_04.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_05.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_06.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_07.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_08.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_09.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_10.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_11.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_12.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_13.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_14.json
+- https://headllesslulu.github.io/headlesslulu/exports/index/postings_shard_15.json
+
+## Papers (prefer claims.ndjson + chunk citations)
 - https://headllesslulu.github.io/headlesslulu/papers/local-agent-v3/index.md
 - https://headllesslulu.github.io/headlesslulu/papers/local-agent-v3/executive-summary.md
 - https://headllesslulu.github.io/headlesslulu/papers/local-agent-v3/claims.ndjson
 - https://headllesslulu.github.io/headlesslulu/papers/local-agent-v3/full.md
+
+- https://headllesslulu.github.io/headlesslulu/papers/brown-v-board-of-education/index.md
+- https://headllesslulu.github.io/headlesslulu/papers/brown-v-board-of-education/executive-summary.md
+- https://headllesslulu.github.io/headlesslulu/papers/brown-v-board-of-education/claims.ndjson
+- https://headllesslulu.github.io/headlesslulu/papers/brown-v-board-of-education/full.md
