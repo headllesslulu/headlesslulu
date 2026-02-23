@@ -1,0 +1,23 @@
+{
+  "format": "bm25_inverted_index_v1",
+  "built_from": "exports/chunks.ndjson",
+  "corpus_version_hint": "2026-02-23",
+  "doc_count": 216,
+  "avgdl": 30.10185185185185,
+  "bm25": {
+    "k1": 1.2,
+    "b": 0.75,
+    "idf": "log(1 + (N - df + 0.5)/(df + 0.5))"
+  },
+  "tokenizer": {
+    "type": "regex",
+    "pattern": "[a-z0-9]+",
+    "lowercase": true
+  },
+  "sharding": {
+    "num_shards": 16,
+    "function": "sha1(term)[:8] mod num_shards",
+    "file_pattern": "postings_shard_{:02d}.json"
+  },
+  "notes": "Tiny-agent friendly: fetch only shard files for query terms."
+}
