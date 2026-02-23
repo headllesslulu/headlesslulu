@@ -1,5 +1,5 @@
 {
-  "spec_version": "1.0",
+  "spec_version": "1.1",
   "name": "headlesslulu-eval-scoring",
   "corpus_version": "2026-02-23",
   "applies_to": [
@@ -76,6 +76,10 @@
       "but",
       "not",
       "no"
+    ],
+    "stopwords_notes": [
+      "Stopword list is intentionally minimal for legal/technical text (modal verbs can carry meaning).",
+      "Do not expand stopwords without re-validating law eval sensitivity."
     ]
   },
   "scoring": {
@@ -125,9 +129,9 @@
           "method": "line_level",
           "line_split": "newline",
           "count_only_informative_lines": true,
-          "informative_line_min_tokens": 3,
+          "informative_line_min_tokens": 5,
           "require_citation_on_each_informative_line": true,
-          "allowed_uncited_informative_lines": 0
+          "allowed_uncited_informative_lines": 1
         }
       },
       "tolerant": {
@@ -148,8 +152,8 @@
               "enabled": true,
               "use_stopwords": true,
               "thresholds": {
-                "expected_token_recall_min": 0.65,
-                "token_f1_min": 0.45
+                "expected_token_recall_min": 0.75,
+                "token_f1_min": 0.6
               }
             },
             "anti_cheat": {
@@ -197,7 +201,8 @@
           "Split output into lines.",
           "A line is 'informative' if it contains >= informative_line_min_tokens tokens.",
           "A line is 'cited' if it contains at least one full chunk_id matching chunk_id_regex.",
-          "Strict: every informative line must be cited.",
+          "Score by counting informative lines without citations.",
+          "Strict: allow up to allowed_uncited_informative_lines uncited informative lines (intended for one short explanation).",
           "Tolerant: allow up to allowed_uncited_informative_lines uncited informative lines, optionally bounded by uncited_line_token_cap."
         ],
         "notes": [
@@ -205,6 +210,48 @@
           "Recommend agents format answers as bullet points with citations per bullet."
         ]
       }
+    },
+    "pass_fail": {
+      "notes": [
+        "Compute per-item composite score using scoring.aggregation.weights, then average over items.",
+        "Report per-type scores separately (microfact_lookup vs bm25_rag) and overall."
+      ],
+      "thresholds": {
+        "strict": {
+          "overall_min": 0.85,
+          "by_type_min": {
+            "microfact_lookup": 0.95,
+            "bm25_rag": 0.8
+          }
+        },
+        "tolerant": {
+          "overall_min": 0.75,
+          "by_type_min": {
+            "microfact_lookup": 0.95,
+            "bm25_rag": 0.7
+          }
+        }
+      },
+      "pass_definition": {
+        "overall_pass": "overall_avg >= overall_min",
+        "type_pass": "avg_by_type[type] >= by_type_min[type] for each present type",
+        "pack_pass": "overall_pass AND type_pass"
+      }
+    }
+  },
+  "changelog": [
+    "Relaxed strict no_uncited_claims to tolerate one short uncited explanatory line; increased informative token threshold.",
+    "Tightened tolerant BM25 answer-match thresholds; clarified tolerant profile is for dev/debug, not benchmarks.",
+    "Added explicit pass/fail thresholds for per-pack and per-type reporting."
+  ],
+  "profiles_metadata": {
+    "tolerant": {
+      "intended_use": "development/debug only",
+      "warning": "Do NOT use tolerant profile scores as headline benchmark results; use strict for reporting."
+    },
+    "strict": {
+      "intended_use": "benchmark/reporting",
+      "warning": "Strict is designed to measure retrieval + citation correctness for published scores."
     }
   }
 }
