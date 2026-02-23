@@ -1,16 +1,18 @@
-# Eval Packs
+# Eval Packs (pinned to corpus_version=2026-02-23)
 
-Each line is JSONL:
-- `query`: the prompt
-- `expected_answer`: canonical target (string)
-- `required_citations`: list of `chunk_id` values that must be cited
+Each line is JSONL.
+
+Fields:
+- `id`: stable id
+- `corpus_version`: pin to a specific corpus build
 - `type`: `microfact_lookup` or `bm25_rag`
+- `query`: evaluation prompt
+- `expected_answer`: target string
+- `required_citations`: list of `chunk_id` values that must appear in the model output
+- `source`: `{
+    "paper": "...",
+    "claim_id": "..."
+  }`
 
-## Scoring (suggested)
-1) **Citations present**: output includes all required chunk_ids.
-2) **No hallucination**: every non-trivial claim is supported by cited chunk text.
-3) **Answer match**: expected_answer matches (exact or fuzzy, depending on task type).
-
-For tiny agents:
-- Use `/papers/*/claims.ndjson` first when available.
-- Otherwise BM25: `/exports/index/*` then fetch chunk texts from `/exports/chunks.ndjson`.
+## Why paraphrased law queries?
+Law evals use **questions** whose answers are the canonical claim text, so an agent can’t pass by simply echoing the query.
