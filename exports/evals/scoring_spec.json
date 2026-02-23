@@ -1,0 +1,210 @@
+{
+  "spec_version": "1.0",
+  "name": "headlesslulu-eval-scoring",
+  "corpus_version": "2026-02-23",
+  "applies_to": [
+    "exports/evals/microfacts_eval.jsonl",
+    "exports/evals/law_eval.jsonl"
+  ],
+  "input_eval_line_schema": {
+    "required_fields": [
+      "id",
+      "type",
+      "query",
+      "expected_answer",
+      "required_citations",
+      "corpus_version"
+    ],
+    "type_enum": [
+      "microfact_lookup",
+      "bm25_rag"
+    ]
+  },
+  "agent_output_expectations": {
+    "output_type": "text",
+    "citations": {
+      "must_include_full_chunk_id_strings": true,
+      "chunk_id_regex": "[a-z0-9\\-]+\\|[a-z0-9\\.\\-]+\\|[0-9a-f]{10}\\|[0-9a-f]{12}",
+      "notes": [
+        "Match FULL chunk_id strings, not the final texthash suffix alone.",
+        "The texthash suffix can repeat when chunk text is identical (e.g., many answers like 'A: 2.')."
+      ],
+      "recommended_format_examples": [
+        "Answer... [paper|doc_id|urlhash|texthash]",
+        "Answer... (citations: paper|doc_id|urlhash|texthash; ...)"
+      ]
+    }
+  },
+  "normalization": {
+    "text": {
+      "lowercase": true,
+      "collapse_whitespace": true
+    },
+    "tokenizer": {
+      "regex": "[a-z0-9]+",
+      "lowercase": true
+    },
+    "stopwords_english_min": [
+      "the",
+      "a",
+      "an",
+      "and",
+      "or",
+      "of",
+      "to",
+      "in",
+      "for",
+      "on",
+      "with",
+      "is",
+      "are",
+      "was",
+      "were",
+      "be",
+      "been",
+      "being",
+      "that",
+      "this",
+      "these",
+      "those",
+      "as",
+      "by",
+      "it",
+      "its",
+      "at",
+      "from",
+      "but",
+      "not",
+      "no"
+    ]
+  },
+  "scoring": {
+    "aggregation": {
+      "method": "weighted_sum",
+      "weights": {
+        "citation_compliance": 0.5,
+        "answer_match": 0.4,
+        "no_uncited_claims": 0.1
+      }
+    },
+    "profiles": {
+      "strict": {
+        "citation_compliance": {
+          "hard_requirement": true,
+          "score": "fraction_required_found",
+          "missing_citation_penalty": "fail_item"
+        },
+        "answer_match": {
+          "microfact_lookup": {
+            "method": "integer_exact",
+            "extract_first_integer_regex": "\\b\\d+\\b",
+            "must_equal_expected": true
+          },
+          "bm25_rag": {
+            "method": "normalized_exact_or_token_f1",
+            "exact_match": {
+              "enabled": true,
+              "normalize_whitespace": true,
+              "case_insensitive": true
+            },
+            "token_f1": {
+              "enabled": true,
+              "use_stopwords": true,
+              "thresholds": {
+                "expected_token_recall_min": 0.85,
+                "token_f1_min": 0.7
+              }
+            },
+            "anti_cheat": {
+              "disallow_echo_query": true,
+              "echo_query_check": "output_normalized_equals_query_normalized"
+            }
+          }
+        },
+        "no_uncited_claims": {
+          "method": "line_level",
+          "line_split": "newline",
+          "count_only_informative_lines": true,
+          "informative_line_min_tokens": 3,
+          "require_citation_on_each_informative_line": true,
+          "allowed_uncited_informative_lines": 0
+        }
+      },
+      "tolerant": {
+        "citation_compliance": {
+          "hard_requirement": false,
+          "score": "fraction_required_found",
+          "missing_citation_penalty": "proportional"
+        },
+        "answer_match": {
+          "microfact_lookup": {
+            "method": "integer_exact",
+            "extract_first_integer_regex": "\\b\\d+\\b",
+            "must_equal_expected": true
+          },
+          "bm25_rag": {
+            "method": "token_f1",
+            "token_f1": {
+              "enabled": true,
+              "use_stopwords": true,
+              "thresholds": {
+                "expected_token_recall_min": 0.65,
+                "token_f1_min": 0.45
+              }
+            },
+            "anti_cheat": {
+              "disallow_echo_query": true,
+              "echo_query_check": "output_normalized_equals_query_normalized"
+            }
+          }
+        },
+        "no_uncited_claims": {
+          "method": "line_level",
+          "line_split": "newline",
+          "count_only_informative_lines": true,
+          "informative_line_min_tokens": 3,
+          "require_citation_on_each_informative_line": false,
+          "allowed_uncited_informative_lines": 1,
+          "uncited_line_token_cap": 20
+        }
+      }
+    },
+    "rule_definitions": {
+      "citation_compliance": {
+        "how_to_score": [
+          "For each chunk_id in required_citations: check if it appears as an exact substring in agent output.",
+          "Score = (# required found) / (total required). If total required is 0, score = 1.0.",
+          "Strict profile may fail the entire item if any required citation is missing."
+        ]
+      },
+      "answer_match": {
+        "microfact_lookup": {
+          "how_to_score": [
+            "Extract first integer from output using extract_first_integer_regex.",
+            "Compare to expected_answer (string of integer). Exact equality required."
+          ]
+        },
+        "bm25_rag": {
+          "token_metrics": [
+            "Tokenize output and expected_answer using tokenizer.regex.",
+            "Optionally remove stopwords_english_min.",
+            "Compute expected_token_recall = |I|/|E|, precision = |I|/|O|, token_f1 = 2PR/(P+R)."
+          ]
+        }
+      },
+      "no_uncited_claims": {
+        "how_to_score": [
+          "Split output into lines.",
+          "A line is 'informative' if it contains >= informative_line_min_tokens tokens.",
+          "A line is 'cited' if it contains at least one full chunk_id matching chunk_id_regex.",
+          "Strict: every informative line must be cited.",
+          "Tolerant: allow up to allowed_uncited_informative_lines uncited informative lines, optionally bounded by uncited_line_token_cap."
+        ],
+        "notes": [
+          "This is a heuristic to penalize 'extra' claims without citations.",
+          "Recommend agents format answers as bullet points with citations per bullet."
+        ]
+      }
+    }
+  }
+}
