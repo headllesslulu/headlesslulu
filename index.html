@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>headlesslulu — Agent-native RAG corpus</title>
+  <meta name="description" content="Agent-native RAG corpus: manifest + chunk exports + grounding contract + paper bundles." />
+  <meta name="robots" content="index,follow" />
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; line-height: 1.5; }
+    header { padding: 28px 22px; border-bottom: 1px solid rgba(127,127,127,.25); }
+    main { padding: 22px; max-width: 920px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    .card { border: 1px solid rgba(127,127,127,.25); border-radius: 12px; padding: 16px; margin: 14px 0; }
+    a { text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 12px; }
+    .small { opacity: .8; font-size: .95em; }
+    .pill { display:inline-block; padding: 2px 10px; border:1px solid rgba(127,127,127,.3); border-radius:999px; margin-right:8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="pill">Agent-native</div>
+    <div class="pill">RAG exports</div>
+    <div class="pill">Grounded summaries</div>
+    <h1 style="margin:10px 0 6px 0;">headlesslulu</h1>
+    <div class="small">Static corpus optimized for retrieval + citation. Prefer machine exports over HTML scraping.</div>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2 style="margin-top:0;">Start here (for agents)</h2>
+      <ul>
+        <li><a href="/headlesslulu/llms.txt">/llms.txt</a> — curated entrypoints</li>
+        <li><a href="/headlesslulu/docs/rag-contract.md">/docs/rag-contract.md</a> — grounding rules (“no cite = no claim”)</li>
+        <li><a href="/headlesslulu/exports/manifest.json">/exports/manifest.json</a> — corpus inventory + versions + hashes</li>
+        <li><a href="/headlesslulu/exports/chunks.ndjson">/exports/chunks.ndjson</a> — chunk stream (NDJSON, one chunk per line)</li>
+      </ul>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2 style="margin-top:0;">Featured paper</h2>
+        <ul>
+          <li><a href="/headlesslulu/papers/local-agent-v3/index.md">LocalAgent v3 — index</a></li>
+          <li><a href="/headlesslulu/papers/local-agent-v3/executive-summary.md">Executive summary</a></li>
+          <li><a href="/headlesslulu/papers/local-agent-v3/claims.ndjson">Claim ledger (claims.ndjson)</a></li>
+          <li><a href="/headlesslulu/papers/local-agent-v3/full.md">Full text (fetch only if needed)</a></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2 style="margin-top:0;">RAG usage pattern</h2>
+        <ol>
+          <li>Fetch <code>manifest.json</code></li>
+          <li>Retrieve relevant <code>chunk_id</code> records from <code>chunks.ndjson</code></li>
+          <li>Summarize with citations (chunk_ids per paragraph)</li>
+          <li>If evidence is missing: output <code>INSUFFICIENT_EVIDENCE</code></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0;">Project Pages note</h2>
+      <p class="small">
+        This site is deployed under <code>/headlesslulu/</code>. Absolute paths must include that prefix.
+      </p>
+    </div>
+
+    <p class="small">
+      Repo: <a href="https://github.com/headllesslulu/headlesslulu">github.com/headllesslulu/headlesslulu</a>
+    </p>
+  </main>
+</body>
+</html>
