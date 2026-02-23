@@ -2,8 +2,8 @@
   "format": "bm25_inverted_index_v1",
   "built_from": "exports/chunks.ndjson",
   "corpus_version_hint": "2026-02-23",
-  "doc_count": 216,
-  "avgdl": 30.10185185185185,
+  "doc_count": 276,
+  "avgdl": 25.94927536231884,
   "bm25": {
     "k1": 1.2,
     "b": 0.75,

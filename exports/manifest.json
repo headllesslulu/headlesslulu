@@ -72,6 +72,118 @@
           "chunks": 37
         }
       ]
+    },
+    {
+      "paper": "brown-v-board-of-education",
+      "title": "Brown et al. v. Board of Education of Topeka et al. (347 U.S. 483, 1954)",
+      "base_url": "/papers/brown-v-board-of-education/",
+      "version": "2026-02-23",
+      "docs": [
+        {
+          "doc_id": "brown-v-board-of-education.01.case-caption-and-counsel",
+          "url": "/papers/brown-v-board-of-education/sections/01-case-caption-and-counsel.md",
+          "version": "2026-02-23",
+          "sha256": "91b0c9c1ad5f0a789ed8696d85b10fa3859770240b13e2bcf8d9c2c473ffd38a",
+          "approx_tokens": 852,
+          "chunks": 10
+        },
+        {
+          "doc_id": "brown-v-board-of-education.02.opinion-of-the-court-warren-c-j",
+          "url": "/papers/brown-v-board-of-education/sections/02-opinion-of-the-court-warren-c-j.md",
+          "version": "2026-02-23",
+          "sha256": "f03a8c1b570ae1a750fa2b301dfbf43aca6688df1491f9d8efef822fc958b833",
+          "approx_tokens": 2353,
+          "chunks": 17
+        },
+        {
+          "doc_id": "brown-v-board-of-education.03.appendix-and-notes",
+          "url": "/papers/brown-v-board-of-education/sections/03-appendix-and-notes.md",
+          "version": "2026-02-23",
+          "sha256": "1bea30638783bfbf0e98d6986c83c0f7ffebeafe5a63a7e36af8c44172b29e59",
+          "approx_tokens": 2710,
+          "chunks": 27
+        }
+      ]
+    },
+    {
+      "paper": "microfacts-v1",
+      "title": "Microfacts v1 (Tiny-agent sanity + lookup pack)",
+      "base_url": "/papers/microfacts-v1/",
+      "version": "2026-02-23",
+      "docs": [
+        {
+          "doc_id": "microfacts-v1.01.strawberry",
+          "url": "/papers/microfacts-v1/sections/01-strawberry.md",
+          "version": "2026-02-23",
+          "sha256": "de26d86e681bbc72b796388a64954134d690ce60c78dc2ddb5e64c3403f76e66",
+          "approx_tokens": 50,
+          "chunks": 3
+        },
+        {
+          "doc_id": "microfacts-v1.02.mississippi",
+          "url": "/papers/microfacts-v1/sections/02-mississippi.md",
+          "version": "2026-02-23",
+          "sha256": "5da191ede2d5c57e6c31a437b8eb5d6584a4f344772192c6c771194bdf2d999a",
+          "approx_tokens": 132,
+          "chunks": 9
+        },
+        {
+          "doc_id": "microfacts-v1.03.banana",
+          "url": "/papers/microfacts-v1/sections/03-banana.md",
+          "version": "2026-02-23",
+          "sha256": "8f7edde0ad1197dab19c04fb1dc5bd7f23a8b968ed6ec3fced8d4b2ebf6ec289",
+          "approx_tokens": 72,
+          "chunks": 6
+        },
+        {
+          "doc_id": "microfacts-v1.04.occurrence",
+          "url": "/papers/microfacts-v1/sections/04-occurrence.md",
+          "version": "2026-02-23",
+          "sha256": "0b7ae9d2e0bcc42c427d7c19746fe9c8d6a3e9c842a406788349727db965a8c1",
+          "approx_tokens": 104,
+          "chunks": 7
+        },
+        {
+          "doc_id": "microfacts-v1.05.accommodate",
+          "url": "/papers/microfacts-v1/sections/05-accommodate.md",
+          "version": "2026-02-23",
+          "sha256": "b798d74a16fb296daf00caeed4befb09d1c9a9637f1b97228a6faf8d7435b9dd",
+          "approx_tokens": 102,
+          "chunks": 7
+        },
+        {
+          "doc_id": "microfacts-v1.06.necessary",
+          "url": "/papers/microfacts-v1/sections/06-necessary.md",
+          "version": "2026-02-23",
+          "sha256": "55cafb9b33c6c0bc2224f239e83ddd2ce0201679e7495c098ec644e029e1ff17",
+          "approx_tokens": 87,
+          "chunks": 7
+        },
+        {
+          "doc_id": "microfacts-v1.07.embarrass",
+          "url": "/papers/microfacts-v1/sections/07-embarrass.md",
+          "version": "2026-02-23",
+          "sha256": "6ea47c2601f7efe3ef47df7cce56e7ff514e19c5a4c37bc2acd17b19a3253912",
+          "approx_tokens": 94,
+          "chunks": 7
+        },
+        {
+          "doc_id": "microfacts-v1.08.programming",
+          "url": "/papers/microfacts-v1/sections/08-programming.md",
+          "version": "2026-02-23",
+          "sha256": "c6bfa960fb9e6548738129556a226c4da7c1de8d42c8ee484de1384def3f3f3b",
+          "approx_tokens": 107,
+          "chunks": 7
+        },
+        {
+          "doc_id": "microfacts-v1.09.millennium",
+          "url": "/papers/microfacts-v1/sections/09-millennium.md",
+          "version": "2026-02-23",
+          "sha256": "85ed5cfb32c04eaf8a8c283994a7add4975c9943cbd9fc84da9608f0427517fb",
+          "approx_tokens": 105,
+          "chunks": 7
+        }
+      ]
     }
   ]
 }
