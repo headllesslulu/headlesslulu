@@ -1,11 +1,12 @@
 # AI Corpus
 
 ## Start
-- /docs/rag-contract.md
-- /exports/manifest.json
-- /exports/chunks.ndjson
+- https://headllesslulu.github.io/headlesslulu/docs/rag-contract.md
+- https://headllesslulu.github.io/headlesslulu/exports/manifest.json
+- https://headllesslulu.github.io/headlesslulu/exports/chunks.ndjson
 
 ## Papers
-- /papers/local-agent-v3/index.md
-- /papers/local-agent-v3/executive-summary.md
-- /papers/local-agent-v3/claims.ndjson
+- https://headllesslulu.github.io/headlesslulu/papers/local-agent-v3/index.md
+- https://headllesslulu.github.io/headlesslulu/papers/local-agent-v3/executive-summary.md
+- https://headllesslulu.github.io/headlesslulu/papers/local-agent-v3/claims.ndjson
+- https://headllesslulu.github.io/headlesslulu/papers/local-agent-v3/full.md
