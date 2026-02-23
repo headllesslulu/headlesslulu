@@ -1,0 +1,11 @@
+# AI Corpus
+
+## Start
+- /docs/rag-contract.md
+- /exports/manifest.json
+- /exports/chunks.ndjson
+
+## Papers
+- /papers/local-agent-v3/index.md
+- /papers/local-agent-v3/executive-summary.md
+- /papers/local-agent-v3/claims.ndjson
