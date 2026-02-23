@@ -3,74 +3,104 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>headlesslulu — Agent-native RAG corpus</title>
-  <meta name="description" content="Agent-native RAG corpus: manifest + chunk exports + grounding contract + paper bundles." />
+  <title>headlesslulu — agent-native corpus</title>
+  <meta name="description" content="Static, agent-native corpus: claim ledgers + chunk exports + BM25 inverted index for tiny agents." />
   <meta name="robots" content="index,follow" />
   <style>
     :root { color-scheme: light dark; }
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; line-height: 1.5; }
     header { padding: 28px 22px; border-bottom: 1px solid rgba(127,127,127,.25); }
-    main { padding: 22px; max-width: 980px; }
+    main { padding: 22px; max-width: 1000px; }
     code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
-    .card { border: 1px solid rgba(127,127,127,.25); border-radius: 12px; padding: 16px; margin: 14px 0; }
     a { text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 12px; }
-    .small { opacity: .8; font-size: .95em; }
     .pill { display:inline-block; padding: 2px 10px; border:1px solid rgba(127,127,127,.3); border-radius:999px; margin-right:8px; }
+    .small { opacity: .8; font-size: .95em; }
+    .card { border: 1px solid rgba(127,127,127,.25); border-radius: 12px; padding: 16px; margin: 14px 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap: 12px; }
+    ul { margin: 8px 0 0 18px; }
+    h1,h2 { margin: 0 0 8px 0; }
+    h2 { font-size: 1.1rem; }
+    .links a { margin-right: 10px; }
   </style>
 </head>
 <body>
   <header>
-    <span class="pill">Agent-native</span>
+    <span class="pill">agent-native</span>
     <span class="pill">RAG exports</span>
-    <span class="pill">Citations</span>
-    <h1 style="margin:10px 0 6px 0;">headlesslulu</h1>
-    <div class="small">Static corpus optimized for retrieval + citation. Prefer machine exports over HTML scraping.</div>
+    <span class="pill">BM25 index</span>
+    <h1 style="margin-top:10px;">headlesslulu</h1>
+    <div class="small">Static corpus optimized for tiny agents: retrieve chunks deterministically, then answer with citations.</div>
   </header>
 
   <main>
+    <div class="grid">
+      <div class="card">
+        <h2>Start (agents)</h2>
+        <ul>
+          <li><a href="llms.txt">llms.txt</a> — entrypoints</li>
+          <li><a href="docs/rag-contract.md">docs/rag-contract.md</a> — grounding rules (“no cite = no claim”)</li>
+          <li><a href="docs/agent-recipe-bm25.md">docs/agent-recipe-bm25.md</a> — tiny-agent retrieval recipe</li>
+          <li><a href="exports/manifest.json">exports/manifest.json</a> — corpus inventory</li>
+          <li><a href="exports/chunks.ndjson">exports/chunks.ndjson</a> — citeable chunk stream</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Index (low hardware)</h2>
+        <div class="small">Fetch only the shard files needed for query terms.</div>
+        <ul>
+          <li><a href="exports/index/index_meta.json">exports/index/index_meta.json</a> — BM25 params + sharding</li>
+          <li><a href="exports/index/doc_index.json">exports/index/doc_index.json</a> — doc_idx → chunk_id/url</li>
+          <li><a href="exports/index/doclens.json">exports/index/doclens.json</a> — lengths + avgdl</li>
+          <li><a href="exports/index/vocab_summary.json">exports/index/vocab_summary.json</a> — sanity stats</li>
+        </ul>
+      </div>
+    </div>
+
     <div class="card">
-      <h2 style="margin-top:0;">Start here (for agents)</h2>
-      <!-- Use RELATIVE links so this works on project pages (/headlesslulu/) -->
+      <h2>Paper bundles</h2>
+      <div class="small">Prefer <code>claims.ndjson</code> for atomic answers; back claims with cited chunks from <code>exports/chunks.ndjson</code>.</div>
+
       <ul>
-        <li><a href="llms.txt">llms.txt</a> — curated entrypoints</li>
-        <li><a href="docs/rag-contract.md">docs/rag-contract.md</a> — grounding rules (“no cite = no claim”)</li>
-        <li><a href="exports/manifest.json">exports/manifest.json</a> — corpus inventory + versions + hashes</li>
-        <li><a href="exports/chunks.ndjson">exports/chunks.ndjson</a> — chunk stream (NDJSON, one chunk per line)</li>
+        <li>
+          <a href="papers/local-agent-v3/index.md">LocalAgent v3 — index</a>
+          <span class="small links">
+            (<a href="papers/local-agent-v3/executive-summary.md">exec</a> ·
+             <a href="papers/local-agent-v3/claims.ndjson">claims</a> ·
+             <a href="papers/local-agent-v3/full.md">full</a>)
+          </span>
+        </li>
+
+        <li>
+          <a href="papers/brown-v-board-of-education/index.md">Brown v. Board of Education (1954) — index</a>
+          <span class="small links">
+            (<a href="papers/brown-v-board-of-education/executive-summary.md">exec</a> ·
+             <a href="papers/brown-v-board-of-education/claims.ndjson">claims</a> ·
+             <a href="papers/brown-v-board-of-education/full.md">full</a>)
+          </span>
+        </li>
+
+        <li>
+          <a href="papers/microfacts-v1/index.md">Microfacts v1 — index</a>
+          <span class="small links">
+            (<a href="papers/microfacts-v1/executive-summary.md">exec</a> ·
+             <a href="papers/microfacts-v1/claims.ndjson">claims</a> ·
+             <a href="papers/microfacts-v1/full.md">full</a>)
+          </span>
+        </li>
       </ul>
     </div>
 
-    <div class="grid">
-      <div class="card">
-        <h2 style="margin-top:0;">Paper bundles</h2>
-        <ul>
-          <li>
-            <a href="papers/local-agent-v3/index.md">LocalAgent v3 — index</a>
-            <span class="small">( <a href="papers/local-agent-v3/executive-summary.md">exec</a> · <a href="papers/local-agent-v3/claims.ndjson">claims</a> · <a href="papers/local-agent-v3/full.md">full</a> )</span>
-          </li>
-          <li>
-            <a href="papers/brown-v-board-of-education/index.md">Brown v. Board (1954) — index</a>
-            <span class="small">( <a href="papers/brown-v-board-of-education/executive-summary.md">exec</a> · <a href="papers/brown-v-board-of-education/claims.ndjson">claims</a> · <a href="papers/brown-v-board-of-education/full.md">full</a> )</span>
-          </li>
-        </ul>
-        <div class="small">For grounded summaries, prefer <code>claims.ndjson</code> + cite <code>chunk_id</code>s from <code>exports/chunks.ndjson</code>.</div>
-      </div>
-
-      <div class="card">
-        <h2 style="margin-top:0;">RAG usage pattern</h2>
-        <ol>
-          <li>Fetch <code>manifest.json</code></li>
-          <li>Retrieve relevant <code>chunk_id</code> records from <code>chunks.ndjson</code></li>
-          <li>Summarize with citations (chunk_ids per paragraph)</li>
-          <li>If evidence is missing: output <code>INSUFFICIENT_EVIDENCE</code></li>
-        </ol>
-      </div>
-    </div>
-
     <div class="card">
-      <h2 style="margin-top:0;">Project Pages note</h2>
-      <p class="small">This site is deployed under <code>/headlesslulu/</code>. These links are relative so they won’t break.</p>
+      <h2>Recommended tiny-agent loop</h2>
+      <ol>
+        <li>Tokenize query → fetch BM25 shard(s)</li>
+        <li>BM25 top-K → fetch those chunk texts</li>
+        <li>Answer in bullets; each bullet cites chunk_id(s)</li>
+        <li>If evidence missing: output <code>INSUFFICIENT_EVIDENCE</code></li>
+      </ol>
+      <div class="small">Links are relative so this works under <code>/headlesslulu/</code> GitHub Project Pages.</div>
     </div>
   </main>
 </body>
